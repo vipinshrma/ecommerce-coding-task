@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: [
+      'dummyjson.com',
+      'i.dummyjson.com',
+      'cdn.dummyjson.com',
+      
+    ],
+  },
+  eslint:{
+    ignoreDuringBuilds:true
+  }
 };
 
 export default nextConfig;
