@@ -3,12 +3,14 @@
 import { useWishlistStore } from "@/store/cart";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface WishlistButtonProps {
     productId: string;
+    variant?: 'icon' | 'button';
 }
 
-export function WishlistButton({ productId }: WishlistButtonProps) {
+export function WishlistButton({ productId, variant = 'icon' }: WishlistButtonProps) {
     const { toggleWishlist, getWishlistItems } = useWishlistStore();
     const [isInWishlist, setIsInWishlist] = useState(false);
 
@@ -26,6 +28,15 @@ export function WishlistButton({ productId }: WishlistButtonProps) {
         toggleWishlist(productId);
         setIsInWishlist(!isInWishlist); // Optimistic UI update
     };
+
+    if (variant === 'button') {
+        return (
+            <Button variant="outline" size="lg" onClick={handleClick}>
+                <Heart className={`mr-2 h-4 w-4 ${isInWishlist ? 'text-red-500 fill-red-500' : 'text-gray-600'}`} />
+                {isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
+            </Button>
+        );
+    }
 
     return (
         <button

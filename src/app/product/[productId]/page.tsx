@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Heart } from 'lucide-react';
 import { AddToCart } from '@/components/add-to-cart';
+import { WishlistButton } from '@/components/wishlist';
 
 type Props = {
   params: Promise<{ productId: string }>;
@@ -106,10 +107,10 @@ export default async function ProductDetailsPage({ params }: Props) {
               className="flex-1"
               size="lg"
             />
-            <Button variant="outline" size="lg">
-              <Heart className="mr-2 h-4 w-4" />
-              Add to Wishlist
-            </Button>
+           <WishlistButton
+           productId={productId}
+           variant='button'
+           />
           </div>
 
           <div className="space-y-4">
