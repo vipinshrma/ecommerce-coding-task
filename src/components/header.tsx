@@ -131,9 +131,18 @@ export default function Header() {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="flex flex-col items-center justify-center h-[200px]">
+                                    <div className="flex flex-col items-center justify-center h-[200px] gap-4">
                                         <ShoppingCart className="h-12 w-12 text-primary/30 mb-4" />
                                         <p className="text-primary/50">Your cart is empty</p>
+                                        <Link href="/">
+                                            <Button 
+                                                variant="outline" 
+                                                className="mt-2 border-primary/20 hover:bg-primary/10 hover:border-primary/30 text-primary/80"
+                                                onClick={handleSheetOpen}
+                                            >
+                                                Continue Shopping
+                                            </Button>
+                                        </Link>
                                     </div>
                                 )}
                             </div>
