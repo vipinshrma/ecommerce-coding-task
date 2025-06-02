@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { Product } from '@/types';
-
+import { toast } from 'sonner';
+ 
 // Cart Store
 interface CartItem {
   product: Product;
@@ -43,8 +44,10 @@ export const useCartStore = create<CartState>((set, get) => ({
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
+        toast.success(`Added ${quantity} more of "${product.title}" to cart`);
       } else {
         newItems = [...state.items, { product, quantity }];
+        toast.success(`Added "${product.title}" to cart`);
       }
       
       saveCartToLocalStorage(newItems);
@@ -53,8 +56,12 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
   removeItem: (productId) => {
     set((state) => {
+      const itemToRemove = state.items.find(item => item.product.id.toString() === productId.toString());
       const newItems = state.items.filter(item => item.product.id.toString() !== productId.toString());
       saveCartToLocalStorage(newItems);
+      if (itemToRemove) {
+        toast.success(`Removed "${itemToRemove.product.title}" from cart`);
+      }
       return { items: newItems };
     });
   },
@@ -72,6 +79,7 @@ export const useCartStore = create<CartState>((set, get) => ({
   clearCart: () => {
     saveCartToLocalStorage([]);
     set({ items: [] });
+    toast.success('Cart cleared');
   },
   getItemCount: () => {
     return get().items.reduce((total, item) => total + item.quantity, 0);
